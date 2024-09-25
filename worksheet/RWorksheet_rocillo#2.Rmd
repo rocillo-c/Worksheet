@@ -203,5 +203,6 @@ print(vegetables)
 
 vegetables_left <- length(vegetables)
 print(vegetables_left)
+
 ```
 
