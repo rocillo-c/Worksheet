@@ -191,7 +191,7 @@ How many data points does your vegetable list have?
 vegetables <- append(vegetables, c("onion", "garlic", "cauliflower", "carrots"), after = 5)
 print(vegetables)
 
-datapoints <- length(vegetables)
+datapoints <- length(vegetables) 
 length(vegetables)
 ```
 d. Remove the vegetables in index 5, 10, and 15. 
