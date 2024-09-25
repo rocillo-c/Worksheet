@@ -143,7 +143,7 @@ celebrity_data[celebrity_data$celebrities == "J.K. Rowling", "Power_ranking"] <-
 print(celebrity_data)
 ```
 c. Create an excel file from the table above and save it
-as csv file(PowerRanking).  
+as csv file(PowerRanking).   
 Import the csv file into the RStudio. What is the R script?
 ```{r}
   write.csv(celebrity_data, "power_ranking.csv", row.names = FALSE)
