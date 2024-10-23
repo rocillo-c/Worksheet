@@ -103,7 +103,7 @@ Write the code.
 
 ```{r}
    library(readxl)
-data <- read.table("/cloud/project/worksheet/worksheet4/import_march.csv", header = TRUE, sep = ",")
+data <- read.table("/cloud/project/worksheet/worksheet 4/import_march.csv", header = TRUE, sep = ",")
 ```
 
 b. View the dataset. Write the R scripts and its result.
@@ -111,4 +111,35 @@ b. View the dataset. Write the R scripts and its result.
 ```{r}
   print(data)
 ```
+
+6. Full Search
+  Exhaustive search is a methodology for finding an answer by exploring all possible cases.
+When trying to find a desired number in a set of given numbers, the method of finding the corresponding number by checking all elements in the set one by one can be called an exhaustive search. Implement an exhaustive search function that meets the input/output conditions below.
+
+a. Create an R Program that allows the User to randomly select numbers from 1 to 50.
+Then display the chosen number. If the number is beyond the range of the selected choice, it will have to display a string “The number selected is beyond the range of 1 to 50”. 
+If number 20 is inputted by the User, it will have to display “TRUE”, otherwise display the input number.
+
+```{r}
+num <- readline(prompt = "Enter a number: ")
+num 
+
+if(num < 1 || num > 50) {
+  paste("The number selected is beyond the range of 1 to 50")
+}else if(num == 20) {
+  print("TRUE")
+} else{
+  print(num)
+}
+```
+7. Change
+At ISATU University’s traditional cafeteria, snacks can only be purchased with bills.
+A long-standing rule at the concession stand is that snacks must be purchased with as few coins as possible.
+There are three types of bills: 50 pesos, 100 pesos, 200 pesos, 500 pesos, 1000 pesos.
+
+a. Write a function that prints the minimum number of bills that must be paid, given the price of the snack.
+Input: Price of snack (a random number divisible by 50) Output: Minimum number of bills needed to purchase a snack.
+
+```{r}
+
 
