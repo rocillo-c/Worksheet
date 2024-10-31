@@ -95,6 +95,70 @@ fill = Gender)
 5. The monthly income of Dela Cruz family was spent on the following:
   a. Create a piechart that will include labels in percentage.Add some colors and title of the chart. Write the R scripts and show its output.
   
+```{r}
+categories <- c("Food", "Electricity", "Savings", "Miscellaneous")
+expenses <- c(60, 10, 5, 25)
 
+percentages <- round(expenses / sum(expenses) * 100)
 
+pie(expenses, labels = paste(categories, percentages, "%"), 
+    col = rainbow(length(categories)),
+    main = "Dela Cruz Family Monthly Income Distribution")
+```
 
+6. Use the iris dataset.
+data(iris)
+a. Check for the structure of the dataset using the str() function. 
+
+```{r}
+ data(iris)
+str(iris)
+```
+
+Describe what you have seen in the output.
+  - The output shows a data frame with 5 variable sepal.lenght, width, petal.lenght, width and species and the values of the variables.
+  
+b. Create an R object that will contain the mean of the sepal.length, sepal.width,petal.length,and petal.width. What is the R script and its result?
+
+```{r}
+ mean_values <- colMeans(iris[, 1:4])
+ mean_values
+
+```
+c. Create a pie chart for the Species distribution. Add title, legends, and colors. Write the R script and its result.
+
+```{r}
+  species_counts <- table(iris$Species)
+pie(species_counts,
+    labels = paste(names(species_counts), round(species_counts / sum(species_counts) * 100, 1), "%"),
+    col = rainbow(length(species_counts)),
+    main = "Species Distribution in Iris Dataset")
+```
+
+d. Subset the species into setosa, versicolor, and virginica. Write the R scripts and show the last six (6) rows of each species.
+
+```{r}
+setosa <- subset(iris, Species == "setosa")
+versicolor <- subset(iris, Species == "versicolor")
+virginica <- subset(iris, Species == "virginica")
+
+tail(setosa)
+tail(versicolor)
+tail(virginica)
+```
+e. Create a scatterplot of the sepal.length and sepal.width using the different species(setosa,versicolor,virginica). 
+Add a title = “Iris Dataset”, subtitle = “Sepal width and length, labels for the x and y axis, the pch symbol and colors should be based on the species.
+
+```{r}
+data_iris <- iris
+data_iris %>%
+ggplot(aes(x = Sepal.Length, y = Sepal.Width, group = Species, color = Species)) +
+ggtitle("Iris Data", subtitle = "Sepal width and length") +
+geom_point()
+```
+
+f. Interpret the result.
+  - the data shows the Iris Data and its 3 different species and the sepal width and sepal length of the Iris.
+  
+7. Import the alexa-file.xlsx. Check on the variations. 
+Notice that there are extra whitespaces among black variants (Black Dot, Black Plus, Black Show, Black Spot). Also on the white variants (White Dot, White Plus, White Show, White Spot).
