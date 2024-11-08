@@ -65,7 +65,7 @@ a. What is the R script for importing an excel or a csv file? Display the first 
 
 ```{r}
  library(readr)
-shoe_size <- read.csv(file = "ShoeSizes.csv",header = T, sep = ",")
+shoe_size <- read.csv("/cloud/project/worksheet/worksheet 4/worksheet4b/CopyOfShoeSizes.csv")
 
 head(shoe_size)
 ```
@@ -150,11 +150,21 @@ e. Create a scatterplot of the sepal.length and sepal.width using the different 
 Add a title = “Iris Dataset”, subtitle = “Sepal width and length, labels for the x and y axis, the pch symbol and colors should be based on the species.
 
 ```{r}
-data_iris <- iris
-data_iris %>%
-ggplot(aes(x = Sepal.Length, y = Sepal.Width, group = Species, color = Species)) +
-ggtitle("Iris Data", subtitle = "Sepal width and length") +
-geom_point()
+library(ggplot2)
+data(iris)
+
+iris$Species <- as.factor(iris$Species)
+
+scatter_plot <- ggplot(iris, aes(x = Sepal.Length, y = Sepal.Width, color = Species, shape = Species)) +
+  ggtitle("Iris Dataset") + 
+  labs(subtitle = "Sepal Width and Length", x = "Sepal Length", y = "Sepal Width") + 
+  geom_point(size = 3) + 
+  scale_color_manual(values = c("setosa" = "pink", "versicolor" = "purple", "virginica" = "lightblue")) + 
+  scale_shape_manual(values = c(16, 17, 18))
+
+
+print(scatter_plot)
+
 ```
 
 f. Interpret the result.
@@ -173,6 +183,12 @@ Syntax:
 RObject$columnName <- gsub("Old Name", "New Name", RObject$columnName)
 
 ```{r}
+alexa_data$variation <- gsub("Sandstone Fabric", "SandstoneFabric", alexa_data$variation)
+alexa_data
+```
+
+
+```{r}
 alexa_data$variation <- gsub("Black Dot", "BlackDot", alexa_data$variation)
 alexa_data$variation <- gsub("Black Plus", "BlackPlus", alexa_data$variation)
 alexa_data$variation <- gsub("Black Show", "BlackShow", alexa_data$variation)
@@ -189,8 +205,80 @@ alexa_data
 Write the R scripts and show an example of the output by getting a snippet. To embed an image into Rmd, use the function below:
 knitr::include_graphics("file path")
 
+b. Get the total number of each variations and save it into another object. 
+Save the object as variations.RData. Write the R scripts. 
+What is its result?
+Hint: Use the dplyr package. Make sure to install it before loading the package.
+Syntax for dplyr
+
+RObject %>%
+count(RObject$columnName)
+
 ```{r}
- knitr::include_graphics("")
+library(dplyr)
+
+variations <- alexa_data %>%
+  count(alexa_data$variation)
+
+  save(variations, file = "/cloud/project/worksheet/worksheet 4/worksheet4b/variations.RData")
+load("variations.RData")
+
+  variations
+  
+```
+
+c. From the variations.RData, create a barplot(). Complete the details of the chart which include the title, color, labels of each bar.
+
+```{r}
+load("variations.RData")
+library(kableExtra)
+
+variation_counts <- setNames(variations$n, variations$variation)
+
+load("variations.RData")
+
+variations_data <- data.frame(variations)
+
+kable(variations_data, col.names = c("Variation", "Total"), 
+      align = c("l", "c"))
+
+```
+d. Create a barplot() for the black and white variations. Plot it in 1 frame, side by
+side. Complete the details of the chart.
+
+```{r}
+library(ggplot2)
+library(gridExtra)
+
+black_var <- data.frame(
+  variation = c("Black", "Black Plus", "Black Show", "Black Spot", "Black Dot"),
+  Count = c(250, 300, 200, 100, 500)
+)
+
+white_var <- data.frame(
+  variation = c("White", "White Dot", "White Plus", "White Show", "White Spot"),
+  Count = c(100, 150, 80, 90, 120)
+)
+
+plot_black <- ggplot(black_var, aes(x = variation, y = Count, fill = variation)) +
+  geom_bar(stat = "identity") +
+  labs(title = "Black Variants", y = "Variants", x = "Total Numbers") +
+  theme_minimal() +
+  theme(
+    legend.position = "none",
+    axis.text.y = element_text(size = 8)
+  )
+
+plot_white <- ggplot(white_var, aes(x = variation, y = Count, fill = variation)) +
+  geom_bar(stat = "identity") +
+  labs(title = "White Variants", y = "Variants", x = "Total Numbers") +
+  theme_minimal() +
+  theme(
+    legend.position = "none",
+    axis.text.y = element_text(size = 8)  
+  )
+
+grid.arrange(plot_black, plot_white, ncol = 2)
 ```
 
 
